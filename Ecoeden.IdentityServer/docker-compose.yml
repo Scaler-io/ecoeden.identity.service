@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  identityDb:
+   image: postgres
+  pgadmin:
+   image: dpage/pgadmin4
+
+  #identityserver:
+  #  image: ${DOCKER_REGISTRY-}identityserver
+  #  build:
+  #    context: .
+  #    dockerfile: IdentityServer/Dockerfile
+
+volumes:
+  postgres_data:    
+  pgadmin_data:
+

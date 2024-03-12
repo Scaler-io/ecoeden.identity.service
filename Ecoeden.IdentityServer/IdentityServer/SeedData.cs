@@ -1,16 +1,16 @@
 ﻿using System.Security.Claims;
 using IdentityModel;
 using IdentityServer.Data;
-using IdentityServer.Models;
+using IdentityServer.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
+using Newtonsoft.Json;
 
 namespace IdentityServer;
 
 public class SeedData
 {
-    public static void EnsureSeedData(WebApplication app)
+    public async static void EnsureSeedData(WebApplication app)
     {
         using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
@@ -18,70 +18,67 @@ public class SeedData
             context.Database.Migrate();
 
             var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            var alice = userMgr.FindByNameAsync("alice").Result;
-            if (alice == null)
+            var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+            var adminRole = new ApplicationRole { Name = "admin", NormalizedName = "ADMIN" };
+            var adminPermissions = new List<ApplicationPermission>
             {
-                alice = new ApplicationUser
+                new ApplicationPermission { Name = "user:write" },
+                new ApplicationPermission { Name = "user:read" },
+                new ApplicationPermission { Name = "role:write" },
+                new ApplicationPermission { Name = "role:read" }
+            };
+
+            if (!context.Permissions.Any())
+            {       
+                foreach(var permission in adminPermissions)
                 {
-                    UserName = "alice",
-                    Email = "AliceSmith@email.com",
+                    context.Permissions.Add(permission);
+                }
+
+                await context.SaveChangesAsync();
+            }
+
+            if (!roleMgr.Roles.Any())
+            {
+                     
+                foreach(var permission in adminPermissions)
+                {
+                    adminRole.RolePermissions.Add(new RolePermission { Permission = permission });
+                }
+                await roleMgr.CreateAsync(adminRole);
+
+            }
+
+            var admin = userMgr.FindByNameAsync("sharthak123").Result;
+
+            if (admin == null)
+            {
+
+                admin = new ApplicationUser
+                {
+                    UserName = "sharthak123",
+                    Email = "admin@ecoeden.com",
                     EmailConfirmed = true,
+                    FirstName = "Sharthak",
+                    Lastname = "Mallik"
                 };
-                var result = userMgr.CreateAsync(alice, "Pass123$").Result;
+                var result = userMgr.CreateAsync(admin, "P@ssw0rd").Result;
                 if (!result.Succeeded)
                 {
                     throw new Exception(result.Errors.First().Description);
                 }
 
-                result = userMgr.AddClaimsAsync(alice, new Claim[]{
-                            new Claim(JwtClaimTypes.Name, "Alice Smith"),
-                            new Claim(JwtClaimTypes.GivenName, "Alice"),
-                            new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                            new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
-                        }).Result;
-                if (!result.Succeeded)
-                {
-                    throw new Exception(result.Errors.First().Description);
-                }
-                Log.Debug("alice created");
-            }
-            else
-            {
-                Log.Debug("alice already exists");
+                result = await userMgr.AddClaimsAsync(admin, new Claim[]{
+                    new Claim(JwtClaimTypes.Name, admin.UserName),
+                    new Claim(JwtClaimTypes.GivenName, admin.FirstName),
+                    new Claim(JwtClaimTypes.FamilyName, admin.Lastname),
+                    new Claim(JwtClaimTypes.Email, admin.Email),
+                    new Claim("role", JsonConvert.SerializeObject(adminRole))
+                });
+
             }
 
-            var bob = userMgr.FindByNameAsync("bob").Result;
-            if (bob == null)
-            {
-                bob = new ApplicationUser
-                {
-                    UserName = "bob",
-                    Email = "BobSmith@email.com",
-                    EmailConfirmed = true
-                };
-                var result = userMgr.CreateAsync(bob, "Pass123$").Result;
-                if (!result.Succeeded)
-                {
-                    throw new Exception(result.Errors.First().Description);
-                }
-
-                result = userMgr.AddClaimsAsync(bob, new Claim[]{
-                            new Claim(JwtClaimTypes.Name, "Bob Smith"),
-                            new Claim(JwtClaimTypes.GivenName, "Bob"),
-                            new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                            new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
-                            new Claim("location", "somewhere")
-                        }).Result;
-                if (!result.Succeeded)
-                {
-                    throw new Exception(result.Errors.First().Description);
-                }
-                Log.Debug("bob created");
-            }
-            else
-            {
-                Log.Debug("bob already exists");
-            }
+            await userMgr.AddToRoleAsync(admin, "admin");
         }
     }
 }

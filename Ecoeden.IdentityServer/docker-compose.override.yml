@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  identityDb:
+   image: postgres
+   container_name: identityDb
+   environment:
+    - POSTGRES_USER=admin
+    - POSTGRES_PASSWORD=admin1234
+    - POSTGRES_DB=IdentityDb
+   ports:
+    - 5432:5432
+   volumes:
+    - postgres_data:/var/lib/postgresql/data/
+
+
+  pgadmin:
+   image: dpage/pgadmin4
+   container_name: pgadmin
+   depends_on:
+     - identityDb
+   environment:
+     - PGADMIN_DEFAULT_EMAIL=admin@ecoeden.com
+     - PGADMIN_DEFAULT_PASSWORD=admin1234
+   ports:
+     - "5050:80"
+   volumes:
+     - pgadmin_data:/root/.pgadmin
+
+  #identityserver:
+  #  environment:
+  #    - ASPNETCORE_ENVIRONMENT=Development
+  #  ports:
+  #    - "80"
