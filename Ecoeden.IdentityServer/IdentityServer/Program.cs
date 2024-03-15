@@ -1,20 +1,16 @@
 ﻿using IdentityServer;
+using IdentityServer.Extensions;
 using Serilog;
 
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .CreateBootstrapLogger();
+var builder = WebApplication.CreateBuilder(args);
+var logger = Logging.GetLogger(builder.Configuration, builder.Environment);
 
-Log.Information("Starting up");
+builder.Services.AddSingleton(x => logger);
+builder.Host.UseSerilog(logger);
 
 try
-{
-    var builder = WebApplication.CreateBuilder(args);
-
-    builder.Host.UseSerilog((ctx, lc) => lc
-        .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
-        .Enrich.FromLogContext()
-        .ReadFrom.Configuration(ctx.Configuration));
+{   
+    logger.Here().Information("Starting up");
 
     var app = builder
         .ConfigureServices()
@@ -22,18 +18,18 @@ try
 
     // this seeding is only for the template to bootstrap the DB and users.
     // in production you will likely want a different approach.
-    Log.Information("Seeding database...");
+    logger.Here().Information("Seeding database...");
     SeedData.EnsureSeedData(app);
-    Log.Information("Done seeding database. Exiting.");
+    logger.Here().Information("Done seeding database. Exiting.");
 
     app.Run();
 }
 catch (Exception ex) when (ex is not HostAbortedException)
 {
-    Log.Fatal(ex, "Unhandled exception");
+    logger.Here().Fatal(ex, "Unhandled exception");
 }
 finally
 {
-    Log.Information("Shut down complete");
+    logger.Here().Information("Shut down complete");
     Log.CloseAndFlush();
 }

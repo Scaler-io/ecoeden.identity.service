@@ -19,7 +19,10 @@ public class SeedData
 
             var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-            var adminRole = new ApplicationRole { Name = "admin", NormalizedName = "ADMIN" };
+            var roles = new List<ApplicationRole>
+            {
+                new ApplicationRole { Name = "admin", NormalizedName = "ADMIN" }
+            };
             var adminPermissions = new List<ApplicationPermission>
             {
                 new ApplicationPermission { Name = "user:write" },
@@ -31,9 +34,7 @@ public class SeedData
             if (!context.Permissions.Any())
             {       
                 foreach(var permission in adminPermissions)
-                {
                     context.Permissions.Add(permission);
-                }
 
                 await context.SaveChangesAsync();
             }
@@ -42,11 +43,11 @@ public class SeedData
             {
                      
                 foreach(var permission in adminPermissions)
-                {
-                    adminRole.RolePermissions.Add(new RolePermission { Permission = permission });
-                }
-                await roleMgr.CreateAsync(adminRole);
+                    roles.First()
+                        .RolePermissions
+                        .Add(new RolePermission { Permission = permission });
 
+                await roleMgr.CreateAsync(roles.First());
             }
 
             var admin = userMgr.FindByNameAsync("sharthak123").Result;
@@ -68,14 +69,14 @@ public class SeedData
                     throw new Exception(result.Errors.First().Description);
                 }
 
-                result = await userMgr.AddClaimsAsync(admin, new Claim[]{
+                await userMgr.AddClaimsAsync(admin, new Claim[]{
                     new Claim(JwtClaimTypes.Name, admin.UserName),
                     new Claim(JwtClaimTypes.GivenName, admin.FirstName),
                     new Claim(JwtClaimTypes.FamilyName, admin.Lastname),
                     new Claim(JwtClaimTypes.Email, admin.Email),
-                    new Claim("role", JsonConvert.SerializeObject(adminRole))
+                    new Claim(JwtClaimTypes.Role, JsonConvert.SerializeObject(string.Join(",", roles.Select(r => r.Name).ToList()))),
+                    new Claim("Permissions", JsonConvert.SerializeObject(string.Join(",", adminPermissions.Select(x => x.Name).ToList())))
                 });
-
             }
 
             await userMgr.AddToRoleAsync(admin, "admin");

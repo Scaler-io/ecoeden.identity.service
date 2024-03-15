@@ -15,10 +15,12 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <partial name="_Nav" />
-   
-    <div class="container body-container">
-        @RenderBody()
+    <div class="container vh-100">
+        <partial name="_Nav" />
+
+        <div class="d-flex align-items-center pt-5">
+            @RenderBody()
+        </div>
     </div>
 
     <script src="~/lib/jquery/dist/jquery.slim.min.js"></script>

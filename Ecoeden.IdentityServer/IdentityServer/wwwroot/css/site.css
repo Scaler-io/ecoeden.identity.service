@@ -1,39 +1,83 @@
-﻿.welcome-page .logo {
-  width: 64px;
+﻿* {
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.icon-banner {
-  width: 32px;
+body {
+    font-size: 10px;
 }
 
-.body-container {
-  margin-top: 60px;
-  padding-bottom: 40px;
+.form-label {
+    font-size: 17px;
+    color: rgb(116, 21, 204);
 }
 
-.welcome-page li {
-  list-style: none;
-  padding: 4px;
+.form-control {
+    height: 50px;
+    font-size: 1rem;
 }
 
-.logged-out-page iframe {
-  display: none;
-  width: 0;
-  height: 0;
+    .form-control:hover {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .form-control:focus {
+        outline: none;
+        box-shadow: none;
+        border-color: #ced4da;
+    }
+
+.btn-rounded {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px !important;
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 50px !important;
+    border-radius: 30px;
+    font-size: 0.9rem;
 }
 
-.grants-page .card {
-  margin-top: 20px;
-  border-bottom: 1px solid lightgray;
+.btn {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.1s ease-in-out;
 }
-.grants-page .card .card-title {
-  font-size: 120%;
-  font-weight: bold;
+
+.btn:focus {
+    box-shadow: 0 4px 3px rgba(0, 0, 0, 0.2); /* Adjust the values for focus effect */
+    outline: none; /* Optional: removes the default focus outline */
 }
-.grants-page .card .card-title img {
-  width: 100px;
-  height: 100px;
+
+.btn:active {
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Adjust the values for click effect */
 }
-.grants-page .card label {
-  font-weight: bold;
+
+.btn-ecoeden {
+    background: rgb(116, 21, 204)
+}
+
+.btn-light-gray {
+    background: rgb(230, 230, 230);
+}
+
+/*# sourceMappingURL=styles.css.map */
+
+.navbar-brand {
+    margin-left: 85px;
+    font-size: 24px;
+    font-weight: bold
+}
+
+.text-ecoeden {
+    color: rgb(116, 21, 204)
+}
+
+.font-xs{
+    font-size: 13px;
+}
+
+.text-light-gray {
+    color: rgb(209, 209, 209)
 }

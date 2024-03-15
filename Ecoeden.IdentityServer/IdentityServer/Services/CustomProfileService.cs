@@ -1,7 +1,6 @@
 ﻿using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using IdentityModel;
-using IdentityServer.Data;
 using IdentityServer.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -43,14 +42,17 @@ namespace IdentityServer.Services
 
             var claims = new List<Claim>
             {
-                new Claim("username", user.UserName),
                 new Claim("roles", JsonConvert.SerializeObject(roles)),
-                new Claim("first name", user.FirstName),
-                new Claim("last name", user.Lastname),
                 new Claim("permissions", JsonConvert.SerializeObject(permissions.Distinct().Select(x => x.Name).ToList()))
-            };
+            };  
+            if (existingClaims is not null)
+            {
+                context.IssuedClaims.Add(existingClaims.FirstOrDefault(x => x.Type == JwtClaimTypes.GivenName));
+                context.IssuedClaims.Add(existingClaims.FirstOrDefault(x => x.Type == JwtClaimTypes.FamilyName));
+                context.IssuedClaims.Add(existingClaims.FirstOrDefault(x => x.Type == JwtClaimTypes.Name));
+                context.IssuedClaims.Add(existingClaims.FirstOrDefault(x => x.Type == JwtClaimTypes.Email));
+            }
             context.IssuedClaims.AddRange(claims);
-            context.IssuedClaims.Add(existingClaims.FirstOrDefault(x => x.Type == JwtClaimTypes.Email));
         }
 
         public Task IsActiveAsync(IsActiveContext context)

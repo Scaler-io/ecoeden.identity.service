@@ -1,4 +1,3 @@
-using Duende.IdentityServer;
 using IdentityServer.Data;
 using IdentityServer.Entity;
 using IdentityServer.Services;
@@ -13,6 +12,7 @@ internal static class HostingExtensions
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddRazorPages();
+
 
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -38,13 +38,14 @@ internal static class HostingExtensions
             .AddAspNetIdentity<ApplicationUser>()
             .AddProfileService<CustomProfileService>();
 
+
+
         builder.Services.ConfigureApplicationCookie(options =>
         {
             options.Cookie.SameSite = SameSiteMode.Lax;
         });
 
         builder.Services.AddAuthentication();
-
 
         return builder.Build();
     }
