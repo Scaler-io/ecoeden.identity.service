@@ -33,7 +33,7 @@ namespace IdentityServer
             {
                 loggerConfigurations.WriteTo.Console(minimumEventLevel, loggingOptions.LogOutputTemplate);
             }
-            if (loggingOptions.ElasticSearch.Enabled)
+            if (loggingOptions.Elastic.Enabled)
             {
                 loggerConfigurations.WriteTo.Elasticsearch(elasticUri, logIndexPattern);
             }

@@ -3,7 +3,12 @@ using IdentityServer.Extensions;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+
 var logger = Logging.GetLogger(builder.Configuration, builder.Environment);
+
+logger.Information("Current environment is {@env}", builder.Environment.EnvironmentName);
 
 builder.Services.AddSingleton(x => logger);
 builder.Host.UseSerilog(logger);

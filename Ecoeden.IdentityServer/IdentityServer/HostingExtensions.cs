@@ -3,6 +3,7 @@ using IdentityServer.Entity;
 using IdentityServer.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Converters;
 using Serilog;
 
 namespace IdentityServer;
@@ -11,7 +12,12 @@ internal static class HostingExtensions
 {
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddRazorPages();
+        builder.Services.AddRazorPages()
+            .AddNewtonsoftJson(config =>
+            {
+                config.UseCamelCasing(true);
+                config.SerializerSettings.Converters.Add(new StringEnumConverter());
+            });
 
 
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
