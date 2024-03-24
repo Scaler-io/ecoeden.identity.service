@@ -40,18 +40,15 @@ internal static class HostingExtensions
             })
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)
+            .AddInMemoryApiResources(Config.ApiResources)
             .AddInMemoryClients(Config.Clients)
             .AddAspNetIdentity<ApplicationUser>()
             .AddProfileService<CustomProfileService>();
-
-
 
         builder.Services.ConfigureApplicationCookie(options =>
         {
             options.Cookie.SameSite = SameSiteMode.Lax;
         });
-
-        builder.Services.AddAuthentication();
 
         return builder.Build();
     }
@@ -68,7 +65,6 @@ internal static class HostingExtensions
         app.UseStaticFiles();
         app.UseRouting();
         app.UseIdentityServer();
-        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapRazorPages()

@@ -15,7 +15,12 @@ public class SeedData
         using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
             var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            context.Database.Migrate();
+
+            // Do migration if it is really required
+            if (IsMigrationRequired(context))
+            {
+                context.Database.Migrate();
+            }
 
             var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
@@ -25,10 +30,18 @@ public class SeedData
             };
             var adminPermissions = new List<ApplicationPermission>
             {
-                new ApplicationPermission { Name = "user:write" },
-                new ApplicationPermission { Name = "user:read" },
+                new ApplicationPermission { Name = "role:read" },
                 new ApplicationPermission { Name = "role:write" },
-                new ApplicationPermission { Name = "role:read" }
+                new ApplicationPermission { Name = "user:read" },
+                new ApplicationPermission { Name = "user:write" },
+                new ApplicationPermission { Name = "inventory:read" },
+                new ApplicationPermission { Name = "inventory:write" },
+                new ApplicationPermission { Name = "report:read" },
+                new ApplicationPermission { Name = "report:write" },
+                new ApplicationPermission { Name = "user_management:read" },
+                new ApplicationPermission { Name = "user_management:write" },
+                new ApplicationPermission { Name = "settings:read" },
+                new ApplicationPermission { Name = "settings:write" }
             };
 
             if (!context.Permissions.Any())
@@ -81,5 +94,15 @@ public class SeedData
 
             await userMgr.AddToRoleAsync(admin, "admin");
         }
+    }
+
+    private static bool IsMigrationRequired(ApplicationDbContext context)
+    {
+        if (!context.Database.GetAppliedMigrations().Any())
+        {
+            return true;
+        }
+
+        return false;
     }
 }

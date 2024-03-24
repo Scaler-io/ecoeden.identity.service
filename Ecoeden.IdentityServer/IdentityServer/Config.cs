@@ -1,4 +1,5 @@
 ﻿using Duende.IdentityServer.Models;
+using IdentityModel;
 
 namespace IdentityServer;
 
@@ -9,14 +10,23 @@ public static class Config
         {
             new IdentityResources.OpenId(),
             new IdentityResources.Profile(),
-            new IdentityResources.Email()
+            new IdentityResources.Email(),
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
         {
-            new ApiScope("scope1"),
-            new ApiScope("scope2"),
+            new ApiScope("userapi:read"),
+            new ApiScope("userapi:write")
+        };
+
+    public static IEnumerable<ApiResource> ApiResources =>
+        new ApiResource[]
+        {
+            new ApiResource("ecoeden.user.api", "User manager api")
+            {
+                Scopes = { "userapi:read", "userapi:write" }
+            }
         };
 
     public static IEnumerable<Client> Clients =>
@@ -27,11 +37,12 @@ public static class Config
             {
                 ClientId = "postman",
                 ClientName = "Postman",
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
+                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 RedirectUris = { "https://www.getpostmane.com/oauth2/callback" }, // Not going to be used. nore redirection in postman testing 
                 ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-                AllowedScopes = { "openid", "profile", "email" },
-                RequireClientSecret = true
-            }
+                AllowedScopes = { "openid", "profile", "email", "userapi:read", "userapi:write" },
+                RequireClientSecret = true,
+                AccessTokenType = AccessTokenType.Jwt,
+            },
         };
 }
