@@ -24,7 +24,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
             .HasKey(ck => new { ck.RoleId, ck.PermissionId });
     }
 
-
     public DbSet<ApplicationPermission> Permissions { get; set; }
     public DbSet<RolePermission> RolePermissions { get; set; }
 }
