@@ -22,3 +22,8 @@ volumes:
   pgadmin_data:
   elasticsearch-data:
 
+networks:
+  ecoeden_dev_net:
+    external: true
+  
+

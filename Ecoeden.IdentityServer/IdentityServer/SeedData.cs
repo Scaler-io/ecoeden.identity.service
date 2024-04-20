@@ -134,31 +134,31 @@ public class SeedData
         }
 
         var roles = GetAppRoles();
-        var adminUser = new ApplicationUser("sharthak123", "Sharthak", "Mallik", "sharthak@ecoeden.com");
+        var adminUser = new ApplicationUser("sharthak123", "Sharthak", "Mallik", "sharthak@ecoeden.com", true, true);
         var operatorUser = new ApplicationUser("john123", "John", "Doe", "john@ecoeden.com");
         var auditorUser = new ApplicationUser("david100", "David", "Warn", "david@ecoeden.com");
 
         try
         {
             await userManager.CreateAsync(adminUser, "P@ssw0rd");
-            await userManager.CreateAsync(operatorUser, "P@ssw0rd");
-            await userManager.CreateAsync(auditorUser, "P@ssw0rd");
+            //await userManager.CreateAsync(operatorUser, "P@ssw0rd");
+            //await userManager.CreateAsync(auditorUser, "P@ssw0rd");
 
             await AddToClaim(adminUser, userManager,
                 roles.Where(x => x.Name == Roles.Admin.ToString()).ToList(),
                 RolePermissionsMap.AdminPermissions);
 
-            await AddToClaim(operatorUser, userManager,
-                roles.Where(x => x.Name == Roles.Operator.ToString()).ToList(),
-                RolePermissionsMap.AdminPermissions);
+            //await AddToClaim(operatorUser, userManager,
+            //    roles.Where(x => x.Name == Roles.Operator.ToString()).ToList(),
+            //    RolePermissionsMap.AdminPermissions);
 
-            await AddToClaim(auditorUser, userManager,
-                roles.Where(x => x.Name == Roles.Auditor.ToString()).ToList(),
-                RolePermissionsMap.AdminPermissions);
+            //await AddToClaim(auditorUser, userManager,
+            //    roles.Where(x => x.Name == Roles.Auditor.ToString()).ToList(),
+            //    RolePermissionsMap.AdminPermissions);
 
             await userManager.AddToRoleAsync(adminUser, Roles.Admin.ToString());
-            await userManager.AddToRoleAsync(operatorUser, Roles.Operator.ToString());
-            await userManager.AddToRoleAsync(auditorUser, Roles.Auditor.ToString());
+            //await userManager.AddToRoleAsync(operatorUser, Roles.Operator.ToString());
+            //await userManager.AddToRoleAsync(auditorUser, Roles.Auditor.ToString());
         }
         catch (Exception)
         {

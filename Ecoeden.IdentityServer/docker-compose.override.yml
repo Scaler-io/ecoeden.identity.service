@@ -11,6 +11,8 @@ services:
     - 5432:5432
    volumes:
     - postgres_data:/var/lib/postgresql/data/
+   networks:
+    - ecoeden_dev_net
 
 
   pgadmin:
@@ -25,6 +27,8 @@ services:
      - "5050:80"
    volumes:
      - pgadmin_data:/root/.pgadmin
+   networks:
+    - ecoeden_dev_net
 
   elasticsearch:
     container_name: 'elasticsearch'
@@ -37,6 +41,8 @@ services:
     - xpack.watcher.enabled=false
     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     - discovery.type=single-node
+    networks:
+    - ecoeden_dev_net
 
   kibana:
     container_name: kibana
@@ -46,6 +52,8 @@ services:
     - elasticsearch
     environment:
     - ELASTICSEARCH_URL=http://elasticsearch:9200
+    networks:
+    - ecoeden_dev_net
 
   identityserver:
     container_name: Ecoeden.IdentityServer
@@ -65,3 +73,5 @@ services:
       - "5000:80"
     depends_on:
       - identityDb
+    networks:
+      - ecoeden_dev_net
