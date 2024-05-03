@@ -17,7 +17,7 @@ namespace IdentityServer
             var elasticUri = configuration["Elasticsearch:Uri"];
             var logIndexPattern = $"Ecoeden.IdentityServer-{environment.EnvironmentName}";
 
-            Enum.TryParse(loggingOptions.Console.LogLevel, false, out LogEventLevel minimumEventLevel);
+            Enum.TryParse(loggingOptions?.Console.LogLevel, false, out LogEventLevel minimumEventLevel);
 
             var loggerConfigurations = new LoggerConfiguration()
                 .MinimumLevel.ControlledBy(new LoggingLevelSwitch(minimumEventLevel))
@@ -31,7 +31,7 @@ namespace IdentityServer
 
             if (loggingOptions.Console.Enabled)
             {
-                loggerConfigurations.WriteTo.Console(minimumEventLevel, loggingOptions.LogOutputTemplate);
+                loggerConfigurations.WriteTo.Console(minimumEventLevel, loggingOptions?.LogOutputTemplate);
             }
             if (loggingOptions.Elastic.Enabled)
             {
