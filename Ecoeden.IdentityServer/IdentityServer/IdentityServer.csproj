@@ -17,12 +17,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Content Remove="compilerconfig.json" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Data\Configurations\ApplicationUserEntityConfiguration.cs~RF7b2d34.TMP" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="6.3.2" />
 		<PackageReference Include="Destructurama.Attributed" Version="3.1.0" />
+		<PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="7.0.18" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
 		<PackageReference Include="Serilog" Version="3.1.1" />
@@ -47,5 +52,6 @@
 
 	<ItemGroup>
 	  <None Include="..\.editorconfig" Link=".editorconfig" />
+	  <None Include="compilerconfig.json" />
 	</ItemGroup>
 </Project>

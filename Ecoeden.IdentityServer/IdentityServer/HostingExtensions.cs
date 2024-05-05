@@ -1,6 +1,8 @@
 using IdentityServer.Data;
 using IdentityServer.Entity;
+using IdentityServer.Security;
 using IdentityServer.Services;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Converters;
@@ -23,12 +25,21 @@ internal static class HostingExtensions
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+        var appRootPath = Directory.GetCurrentDirectory();
+
+        builder.Services.AddDataProtection()
+            .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(appRootPath, "keys")))
+            .SetApplicationName("ecoeden");
+
         builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
         {
-            options.Tokens.ChangeEmailTokenProvider = TokenOptions.DefaultEmailProvider;
+            options.SignIn.RequireConfirmedEmail = true;
+            options.Tokens.EmailConfirmationTokenProvider = "EmailConfirmationTokenProvider";
+            options.Tokens.PasswordResetTokenProvider = "PasswordResetTokenProvider";
         })
         .AddEntityFrameworkStores<ApplicationDbContext>()
-        .AddDefaultTokenProviders();
+        .AddDefaultTokenProviders()
+        .AddTokenProvider<ConfirmationEmailTokenProvider<ApplicationUser>>("EmailConfirmationTokenProvider");
 
         builder.Services
             .AddIdentityServer(options =>

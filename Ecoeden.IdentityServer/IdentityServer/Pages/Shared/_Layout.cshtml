@@ -6,16 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 
     <title>Duende IdentityServer</title>
-    
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+    <link rel="preload" href="fonts/Titillium_Web/TitilliumWeb-Regular.ttf" as="font" type="font/ttf" crossorigin>
     
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap4-glyphicons/css/bootstrap-glyphicons.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("HeadStyles", required: false)
 </head>
 <body>
-    <div class="container vh-100">
+    <div class="container min-vh-100 vh-100">
         <partial name="_Nav" />
 
         <div class="d-flex align-items-center pt-5">

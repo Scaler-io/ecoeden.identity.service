@@ -1,0 +1,73 @@
+﻿@page
+@model IdentityServer.Pages.Account.EmailVerification.IndexModel
+
+
+<div class="container ml-5 email-verification-container">
+    @*@if (Model.EmailVerificationFailed)
+    {
+        <div class="alert alert-danger">
+            @Model.FailureMessage
+        </div>
+    }
+
+    @if (Model.EmailVerificationCompleted)
+    {
+        <div class="alert alert-success">
+            Congratulations! your email is verified. You can now log in.
+        </div>
+    }*@
+
+    <div class="container">
+        <div class="p-4">
+            @if (Model.EmailVerificationCompleted)
+            {
+                <div class="heading-primary">
+                    <i class="ecoeden-text-primary mb-2 glyphicon glyphicon-ok-circle font-lg"></i>
+                    <h3 class="ecoeden-text-primary heading-main">
+                        Great! welcome onboard
+                    </h3>
+                </div>
+                <div class="subtext-primary text-center">
+                    <p class="font-sm">
+                        Your email has been verified successfully and your account is activated now.
+                    </p>
+                </div>
+                <div class="subtext-secondary text-center">
+                    <h5 class="font-md mb-3">Next step</h5>
+                    <p class="font-sm">We have sent you one email with your default password. We recommend you to login and change the password.</p>
+                    <p class="font-sm"><a href="#" class="ecoeden-link">Login</a> to your account</p>
+                </div>
+            }
+            
+            @if (Model.EmailVerificationFailed)
+            {
+                <div class="heading-primary">
+                    <i class="ecoeden-text-error mb-2 glyphicon glyphicon-remove-sign font-lg"></i>
+                    <h3 class="ecoeden-text-error heading-main">
+                        Oops! Link is invalid
+                    </h3>
+                </div>
+                <div class="subtext-primary text-center">
+                    <p class="font-sm">
+                        It could be one of the following reasons
+                    </p>
+                    <div class="error-reasons text-left py-3 banner--info">
+                        <ul>
+                            <li>The link is expired.</li>
+                            <li>The information in link is invalid or tampered.</li>
+                            <li>The profile is already activated.</li>
+                        </ul>
+                    </div>
+                </div>
+            }
+            
+        </div>
+        <div class="d-flex justify-content-center align-items-center pt-5">
+            @if (Model.EmailVerificationFailed)
+            {
+                <img src="~/images/connection_reset.png" width="350" />
+            }
+        </div>
+    </div>
+
+</div>

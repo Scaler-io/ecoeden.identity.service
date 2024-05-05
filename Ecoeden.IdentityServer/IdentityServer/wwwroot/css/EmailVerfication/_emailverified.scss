@@ -1,0 +1,36 @@
+﻿.subtext-primary,
+.subtext-secondary {
+    margin-left: 37px;
+    p {
+        color: #525151;
+    }
+}
+
+.subtext-secondary {
+    line-height: 5px;  
+}
+.heading-primary{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 14px;
+}
+
+.error-reasons{
+    padding-left: calc(100% - 75%)
+}
+
+@media screen and (max-width: 360px) {
+    .email-verification-container {
+        margin-left: auto !important;
+        padding: 0px;
+    }
+
+    .heading-main {
+        font-size: 16px;
+    }
+
+    .subtext-secondary {
+        line-height: 15px;
+    }
+}

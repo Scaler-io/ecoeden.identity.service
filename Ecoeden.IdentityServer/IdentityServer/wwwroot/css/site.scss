@@ -1,7 +1,47 @@
+@import "EmailVerfication/_emailverified.scss";
+
+
 .welcome-page {
   .logo {
     width: 64px;
   }
+}
+
+@font-face {
+    font-family: 'Titillium Web';
+    src: url('../fonts/Titillium_Web/TitilliumWeb-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* Use swap for optimal performance */
+}
+
+body {
+    font-family: 'Titillium Web',sans-serif;
+}
+
+.font-xs{
+    font-size: 12px;
+}
+.font-sm {
+    font-size: 14px;
+}
+.font-md {
+    font-size: 18px;
+}
+.font-lg {
+    font-size: 20px;
+}
+.ecoeden-link {
+    text-decoration: none;
+    color: rgb(121, 85, 230);
+    &:hover{
+        text-decoration: none!important;
+        font-weight: bold;
+    }
+}
+
+height-10{
+    height: 650px !important;
 }
 
 .icon-banner {
@@ -13,11 +53,43 @@
   padding-bottom: 40px;
 }
 
+.banner {
+    &--info,
+    &--success,
+    &--error {
+        border-radius: 15px !important;
+    }
+
+    &--info {
+        background: rgba(#d1cfcf, .2);
+    }
+
+    &--success {
+        background: rgba(#7955e6, .2);
+    }
+
+    &--error {
+        background: rgba(#ff4782, .2);
+    }
+}
+.ecoeden-text-primary {
+    color: #7955e6;
+}
+
+.ecoeden-text-error {
+    color: #ff4782;
+}
+
 .welcome-page {
-  li {
-    list-style: none;
-    padding: 4px;
-  }
+    li {
+        list-style: none;
+        padding: 4px;
+    }
+}
+
+.alert-success{
+    background: green!important;
+    background-color: green!important;
 }
 
 .logged-out-page {

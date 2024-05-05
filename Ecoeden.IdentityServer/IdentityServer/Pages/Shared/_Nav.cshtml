@@ -13,7 +13,7 @@
     <div class="nav navbar-nav">
         <div class="navbar-brand"
              aria-current="page">
-            <span class="text-ecoeden">E</span>coeden
+            <span class="ecoeden-text-primary font-weight-bold">E</span>coeden
         </div>
         @if (!string.IsNullOrWhiteSpace(name))
         {
@@ -28,10 +28,13 @@
             </ul>
         } 
     </div>
-    <div class="nav navbar-nav ml-auto">
-        <div class="nav-item font-xs text-secondary">
-            New user?
-            <a class="text-decoration-none text-ecoeden" href="#">Sign up</a>
+    @if(ViewData["current-page"].Equals("login"))
+    {
+        <div class="nav navbar-nav ml-auto">
+            <div class="nav-item font-xs text-secondary">
+                New user?
+                <a class="text-decoration-none text-ecoeden" href="#">Sign up</a>
+            </div>
         </div>
-    </div>
+    }
 </nav>
