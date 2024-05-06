@@ -12,7 +12,7 @@
 
 @if (isLoggedIn.HasValue && !isLoggedIn.Value)
 {
-    <div class="card border-0">
+    <div class="card border-0 mb-5">
         <div class="card-body">
             <partial name="_ValidationSummary" />
             <div class="row">
@@ -57,7 +57,7 @@
                                     <div class="form-check d-flex align-items-center">
                                         <input class="form-check-input" asp-for="Input.RememberLogin">
                                         <label class="form-check-label font-sm" asp-for="Input.RememberLogin">
-                                            Remember My Login
+                                            Remember me
                                         </label>
                                     </div>
                                 </div>

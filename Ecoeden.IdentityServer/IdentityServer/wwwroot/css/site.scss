@@ -1,5 +1,15 @@
 @import "EmailVerfication/_emailverified.scss";
 
+$color-primary: #7955e6;
+$color-error: #ff4782;
+$color-info: #d1cfcf;
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
 
 .welcome-page {
   .logo {
@@ -16,7 +26,14 @@
 }
 
 body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
     font-family: 'Titillium Web',sans-serif;
+}
+
+.app-main {
+    flex: 1;
 }
 
 .font-xs{
@@ -33,9 +50,10 @@ body {
 }
 .ecoeden-link {
     text-decoration: none;
-    color: rgb(121, 85, 230);
-    &:hover{
-        text-decoration: none!important;
+    color: $color-primary;
+
+    &:hover {
+        text-decoration: none !important;
         font-weight: bold;
     }
 }
@@ -48,10 +66,7 @@ height-10{
   width: 32px;
 }
 
-.body-container {
-  margin-top: 60px;
-  padding-bottom: 40px;
-}
+
 
 .banner {
     &--info,
@@ -61,36 +76,26 @@ height-10{
     }
 
     &--info {
-        background: rgba(#d1cfcf, .2);
+        background: $color-info;
+        filter: opacity(.2);
     }
 
     &--success {
-        background: rgba(#7955e6, .2);
+        background: $color-info;
+        filter: opacity(.2);
     }
 
     &--error {
-        background: rgba(#ff4782, .2);
+        background: $color-error;
+        filter: opacity(.2);
     }
 }
-
-.form-check {
-    &-label::before {
-        background-color: red!important;
-    }
-
-    &-input:checked {
-        &~.form-check-label::before {
-            background-color: black!important;
-        }
-    }
-}
-
 
 .form-control {
     &:focus {
         outline: none !important;
         box-shadow: none !important;
-        border: 1px solid #7955e6 !important;
+        border: 1px solid $color-primary !important;
     }
 }
 
@@ -115,16 +120,16 @@ height-10{
     }
 
     &-primary {
-        background: #7955e6 !important;
+        background: $color-primary !important;
     }
 }
 
 .ecoeden-text-primary {
-    color: #7955e6;
+    color: $color-primary;
 }
 
 .ecoeden-text-error {
-    color: #ff4782;
+    color: $color-error;
 }
 
 .welcome-page {
@@ -166,4 +171,28 @@ height-10{
       font-weight: bold;
     }
   }
+}
+
+
+.footer {
+    background: $color-primary!important;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    &-brand{
+        margin-left: 15px;
+    }
+    &-links{
+        display: flex;
+        column-gap: 15px;
+        & div{
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+        }
+    }
 }

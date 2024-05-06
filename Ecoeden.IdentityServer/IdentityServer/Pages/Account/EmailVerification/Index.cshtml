@@ -2,21 +2,7 @@
 @model IdentityServer.Pages.Account.EmailVerification.IndexModel
 
 
-<div class="container ml-5 email-verification-container">
-    @*@if (Model.EmailVerificationFailed)
-    {
-        <div class="alert alert-danger">
-            @Model.FailureMessage
-        </div>
-    }
-
-    @if (Model.EmailVerificationCompleted)
-    {
-        <div class="alert alert-success">
-            Congratulations! your email is verified. You can now log in.
-        </div>
-    }*@
-
+<div class="container ml-5 email-verification-container mb-5">
     <div class="container">
         <div class="p-4">
             @if (Model.EmailVerificationCompleted)

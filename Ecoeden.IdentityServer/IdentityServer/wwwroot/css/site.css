@@ -34,6 +34,12 @@
     line-height: 15px;
   }
 }
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .welcome-page .logo {
   width: 64px;
 }
@@ -46,7 +52,14 @@
   font-display: swap; /* Use swap for optimal performance */
 }
 body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
   font-family: "Titillium Web", sans-serif;
+}
+
+.app-main {
+  flex: 1;
 }
 
 .font-xs {
@@ -67,7 +80,7 @@ body {
 
 .ecoeden-link {
   text-decoration: none;
-  color: rgb(121, 85, 230);
+  color: #7955e6;
 }
 .ecoeden-link:hover {
   text-decoration: none !important;
@@ -82,29 +95,20 @@ height-10 {
   width: 32px;
 }
 
-.body-container {
-  margin-top: 60px;
-  padding-bottom: 40px;
-}
-
 .banner--info, .banner--success, .banner--error {
   border-radius: 15px !important;
 }
 .banner--info {
-  background: rgba(209, 207, 207, 0.2);
+  background: #d1cfcf;
+  filter: opacity(0.2);
 }
 .banner--success {
-  background: rgba(121, 85, 230, 0.2);
+  background: #d1cfcf;
+  filter: opacity(0.2);
 }
 .banner--error {
-  background: rgba(255, 71, 130, 0.2);
-}
-
-.form-check-label::before {
-  background-color: red !important;
-}
-.form-check-input:checked ~ .form-check-label::before {
-  background-color: black !important;
+  background: #ff4782;
+  filter: opacity(0.2);
 }
 
 .form-control:focus {
@@ -170,4 +174,27 @@ height-10 {
 }
 .grants-page .card label {
   font-weight: bold;
+}
+
+.footer {
+  background: #7955e6 !important;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.footer-brand {
+  margin-left: 15px;
+}
+.footer-links {
+  display: flex;
+  column-gap: 15px;
+}
+.footer-links div {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }
