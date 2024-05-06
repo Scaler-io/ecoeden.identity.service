@@ -16,12 +16,12 @@
         <div class="card-body">
             <partial name="_ValidationSummary" />
             <div class="row">
-                <div class="col col-md-6">
+                <div class="col col-md-12 col-lg-6">
                     <div class="container">
                         <img src="~/images/plant1.png" width="100%" />
                     </div>
                 </div>
-                <div class="col col-md-5">
+                <div class="col col-md-12 col-lg-6">
                     <div class="container text-center">
                         <h4>Admin login</h4>
                         <small class="text-light-gray font-xs">Login to continue</small>
@@ -54,9 +54,9 @@
                             @if (Model.View.AllowRememberLogin)
                             {
                                 <div class="form-group">
-                                    <div class="form-check">
+                                    <div class="form-check d-flex align-items-center">
                                         <input class="form-check-input" asp-for="Input.RememberLogin">
-                                        <label class="form-check-label" asp-for="Input.RememberLogin">
+                                        <label class="form-check-label font-sm" asp-for="Input.RememberLogin">
                                             Remember My Login
                                         </label>
                                     </div>
@@ -64,7 +64,7 @@
                             }
 
                             <div class="mt-5 d-flex gap-md-4">
-                                <button name="Input.Button" value="login" class="btn btn-ecoeden btn-rounded text-white">
+                                <button name="Input.Button" value="login" class="btn btn-primary btn-rounded text-white">
                                     LOGIN
                                 </button>
                                 <button name="Input.Button" value="cancel" class="btn btn-rounded btn-light-gray ml-4">

@@ -72,6 +72,53 @@ height-10{
         background: rgba(#ff4782, .2);
     }
 }
+
+.form-check {
+    &-label::before {
+        background-color: red!important;
+    }
+
+    &-input:checked {
+        &~.form-check-label::before {
+            background-color: black!important;
+        }
+    }
+}
+
+
+.form-control {
+    &:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border: 1px solid #7955e6 !important;
+    }
+}
+
+.btn {
+    font-size: 14px !important;
+    padding: 10px 18px !important;
+    outline: none !important;
+    border: none !important;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2) !important;
+    transition: box-shadow 0.1s ease;
+
+    &:hover,
+    &:focus,
+    &:active {
+        outline: none !important;
+        border: none !important;
+    }
+
+    &:focus,
+    &:active {
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2) !important; /* Remove shadow on click */
+    }
+
+    &-primary {
+        background: #7955e6 !important;
+    }
+}
+
 .ecoeden-text-primary {
     color: #7955e6;
 }
