@@ -49,7 +49,13 @@ namespace IdentityServer.Pages.Account.EmailVerification
                 FailureMessage = "Seems like the url was tampered. Please connect to support team";
                 return Page();
             }
-            var t = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token));
+            if (user.EmailConfirmed)
+            {
+                _logger.Here().Error("User email is already activated {email}", user.Email);
+                EmailVerificationFailed = true;
+                FailureMessage = "Seems like the url was tampered. Please connect to support team";
+                return Page();
+            }
             var result = await _userManager.ConfirmEmailAsync(user, Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token)));
             if(!result.Succeeded)
             {
