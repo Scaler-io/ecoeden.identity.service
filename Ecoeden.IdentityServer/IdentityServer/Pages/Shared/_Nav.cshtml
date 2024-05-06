@@ -28,7 +28,8 @@
             </ul>
         } 
     </div>
-    @if(ViewData["current-page"].Equals("login"))
+    @if (ViewData["current-page"] is not null
+     && ViewData["current-page"].Equals("login"))
     {
         <div class="nav navbar-nav ml-auto">
             <div class="nav-item font-xs text-secondary">
