@@ -17,7 +17,9 @@ public static class Config
         new ApiScope[]
         {
             new ApiScope("userapi:read"),
-            new ApiScope("userapi:write")
+            new ApiScope("userapi:write"),
+            new ApiScope("catalogueapi:read"),
+            new ApiScope("catalogueapi:write")
         };
 
     public static IEnumerable<ApiResource> ApiResources =>
@@ -26,6 +28,10 @@ public static class Config
             new ApiResource("ecoeden.user.api", "User manager api")
             {
                 Scopes = { "userapi:read", "userapi:write" }
+            },
+            new ApiResource("ecoeden.catalogue.api", "Catalogue api")
+            {
+                Scopes = { "catalogueapi:read", "catalogueapi:write" }
             }
         };
 
@@ -40,7 +46,7 @@ public static class Config
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 RedirectUris = { "https://www.getpostmane.com/oauth2/callback" }, // Not going to be used. nore redirection in postman testing 
                 ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-                AllowedScopes = { "openid", "profile", "email", "userapi:read", "userapi:write" },
+                AllowedScopes = { "openid", "profile", "email", "userapi:read", "userapi:write", "catalogueapi:read", "catalogueapi:write" },
                 RequireClientSecret = true,
                 AccessTokenType = AccessTokenType.Jwt,
             },
