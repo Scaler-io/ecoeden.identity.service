@@ -1,5 +1,4 @@
 ﻿using Duende.IdentityServer.Models;
-using IdentityModel;
 
 namespace IdentityServer;
 
@@ -16,20 +15,20 @@ public static class Config
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
         {
-            new ApiScope("userapi:read"),
-            new ApiScope("userapi:write"),
-            new ApiScope("catalogueapi:read"),
-            new ApiScope("catalogueapi:write")
+            new("userapi:read"),
+            new("userapi:write"),
+            new("catalogueapi:read"),
+            new("catalogueapi:write"),
         };
 
     public static IEnumerable<ApiResource> ApiResources =>
         new ApiResource[]
         {
-            new ApiResource("ecoeden.user.api", "User manager api")
+            new("ecoeden.user.api", "User manager api")
             {
                 Scopes = { "userapi:read", "userapi:write" }
             },
-            new ApiResource("ecoeden.catalogue.api", "Catalogue api")
+            new("ecoeden.catalogue.api", "Catalogue api")
             {
                 Scopes = { "catalogueapi:read", "catalogueapi:write" }
             }
@@ -39,7 +38,7 @@ public static class Config
         new Client[]
         {
             // m2m client credentials flow client
-            new Client
+            new()
             {
                 ClientId = "postman",
                 ClientName = "Postman",
