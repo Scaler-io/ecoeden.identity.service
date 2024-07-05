@@ -36,7 +36,7 @@ public class ApplicationUser : IdentityUser
         FirstName = firstName;
         Lastname = lastname;
         Email = email;
-        EmailConfirmed = false;
+        EmailConfirmed = true;
         PhoneNumberConfirmed = false;
         IsDefaultAdmin = isDefaultAdmin;
         IsActive = isActive;
