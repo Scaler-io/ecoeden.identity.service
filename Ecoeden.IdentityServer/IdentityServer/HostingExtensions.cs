@@ -41,6 +41,7 @@ internal static class HostingExtensions
         .AddDefaultTokenProviders()
         .AddTokenProvider<ConfirmationEmailTokenProvider<ApplicationUser>>("EmailConfirmationTokenProvider");
 
+
         builder.Services
             .AddIdentityServer(options =>
             {
@@ -64,6 +65,14 @@ internal static class HostingExtensions
             options.Cookie.SameSite = SameSiteMode.Lax;
         });
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("ecoedencors", policy =>
+            {
+                policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+            });
+        });
+
         return builder.Build();
     }
 
@@ -77,6 +86,7 @@ internal static class HostingExtensions
         }
 
         app.UseStaticFiles();
+        app.UseCors("ecoedencors");
         app.UseRouting();
         app.UseIdentityServer();
         app.UseAuthorization();

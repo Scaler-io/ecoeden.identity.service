@@ -9,7 +9,7 @@ public static class Config
         {
             new IdentityResources.OpenId(),
             new IdentityResources.Profile(),
-            new IdentityResources.Email(),
+            new IdentityResources.Email()
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
@@ -37,6 +37,20 @@ public static class Config
     public static IEnumerable<Client> Clients =>
         new Client[]
         {
+            new(){
+                ClientId = "ecoeden.management.ui",
+                ClientName = "Management UI SPA",
+                AllowedGrantTypes = GrantTypes.Code,
+                RedirectUris = { "http://localhost:4200"},
+                PostLogoutRedirectUris = { "http://localhost:4200"},
+                RequirePkce = true,
+                RequireClientSecret = false,
+                AccessTokenType = AccessTokenType.Jwt,
+                AllowOfflineAccess = true,
+                AllowedScopes = { "openid", "profile", "email", "catalogueapi:read", "catalogueapi:write", "userapi:read", "userapi:write"},
+                AccessTokenLifetime = 3600*24*30,
+                AlwaysIncludeUserClaimsInIdToken = true
+            },
             new()
             {
                 ClientId = "ecoeden.user.api",
