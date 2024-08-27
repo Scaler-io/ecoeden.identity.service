@@ -19,6 +19,8 @@ public static class Config
             new("userapi:write"),
             new("catalogueapi:read"),
             new("catalogueapi:write"),
+            new("searchapi:read"),
+            new("searchapi:write"),
         };
 
     public static IEnumerable<ApiResource> ApiResources =>
@@ -31,6 +33,10 @@ public static class Config
             new("ecoeden.catalogue.api", "Catalogue api")
             {
                 Scopes = { "catalogueapi:read", "catalogueapi:write" }
+            },
+            new("ecoeden.search.api", "Search api")
+            {
+                Scopes = { "searchapi:read", "searchapi:write" }
             }
         };
 
@@ -47,8 +53,9 @@ public static class Config
                 RequireClientSecret = false,
                 AccessTokenType = AccessTokenType.Jwt,
                 AllowOfflineAccess = true,
-                AllowedScopes = { "openid", "profile", "email", "catalogueapi:read", "catalogueapi:write", "userapi:read", "userapi:write"},
+                AllowedScopes = { "openid", "profile", "email", "catalogueapi:read", "catalogueapi:write", "userapi:read", "userapi:write", "searchapi:read", "searchapi:write"},
                 AccessTokenLifetime = 3600*24*30,
+                AuthorizationCodeLifetime = 3600*24,
                 AlwaysIncludeUserClaimsInIdToken = true
             },
             new()
@@ -81,7 +88,7 @@ public static class Config
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 RedirectUris = { "https://www.getpostmane.com/oauth2/callback" }, // Not going to be used. nore redirection in postman testing 
                 ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-                AllowedScopes = { "openid", "profile", "email", "userapi:read", "userapi:write", "catalogueapi:read", "catalogueapi:write" },
+                AllowedScopes = { "openid", "profile", "email", "userapi:read", "userapi:write", "catalogueapi:read", "catalogueapi:write", "searchapi:read", "searchapi:write" },
                 RequireClientSecret = true,
                 AccessTokenType = AccessTokenType.Jwt,
             },
