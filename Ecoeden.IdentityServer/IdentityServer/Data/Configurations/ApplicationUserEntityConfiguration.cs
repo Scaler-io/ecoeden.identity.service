@@ -12,6 +12,8 @@ namespace IdentityServer.Data.Configurations
                 .WithOne(u => u.User)
                 .HasForeignKey(fk => fk.UserId)
                 .IsRequired();
+
+            builder.Property(r => r.Image).IsRequired(false);
         }
     }
 }

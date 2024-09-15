@@ -12,6 +12,7 @@ public class ApplicationUser : IdentityUser
     public string FirstName { get; set; }
     public string Lastname { get; set; }
     public ICollection<ApplicationUserRole> UserRoles { get; set; } = new List<ApplicationUserRole>();
+    public string Image { get; set; }
     public DateTime LastLogin { get; private set; }
     public bool IsDefaultAdmin { get; set; } = false;
     public bool IsActive { get; set; } = true;
