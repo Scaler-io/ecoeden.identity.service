@@ -13,7 +13,8 @@ namespace IdentityServer.Data.Configurations
                 .HasForeignKey(fk => fk.UserId)
                 .IsRequired();
 
-            builder.Property(r => r.Image).IsRequired(false);
+            builder.Property(u => u.Image).IsRequired(false);
+            builder.Property(u => u.ImageId).IsRequired(false);
         }
     }
 }
