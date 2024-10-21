@@ -21,6 +21,8 @@ public static class Config
             new("catalogueapi:write"),
             new("searchapi:read"),
             new("searchapi:write"),
+            new("inventoryapi:read"),
+            new("inventoryapi:write")
         };
 
     public static IEnumerable<ApiResource> ApiResources =>
@@ -37,6 +39,10 @@ public static class Config
             new("ecoeden.search.api", "Search api")
             {
                 Scopes = { "searchapi:read", "searchapi:write" }
+            },
+            new("ecoeden.inventory.api", "Inventory api")
+            {
+                Scopes = { "inventoryapi:read", "inventoryapi:write" }
             }
         };
 
@@ -53,7 +59,20 @@ public static class Config
                 RequireClientSecret = false,
                 AccessTokenType = AccessTokenType.Jwt,
                 AllowOfflineAccess = true,
-                AllowedScopes = { "openid", "profile", "email", "catalogueapi:read", "catalogueapi:write", "userapi:read", "userapi:write", "searchapi:read", "searchapi:write"},
+                AllowedScopes = 
+                { 
+                    "openid", 
+                    "profile", 
+                    "email", 
+                    "catalogueapi:read", 
+                    "catalogueapi:write", 
+                    "userapi:read", 
+                    "userapi:write", 
+                    "searchapi:read", 
+                    "searchapi:write", 
+                    "inventoryapi:read", 
+                    "inventoryapi:write"
+                },
                 AccessTokenLifetime = 3600*24*30,
                 AuthorizationCodeLifetime = 3600*24,
                 AlwaysIncludeUserClaimsInIdToken = true
@@ -80,6 +99,17 @@ public static class Config
                 RequireClientSecret = true,
                 AccessTokenType = AccessTokenType.Jwt,
             },
+            new()
+            {
+                ClientId = "ecoeden.inventory.api",
+                ClientName = "Inventory Api",
+                AllowedGrantTypes = GrantTypes.ClientCredentials,
+                RedirectUris = { "https://www.getpostmane.com/oauth2/callback" }, // Not going to be used. nore redirection in postman testing 
+                ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
+                AllowedScopes = { "inventoryapi:read", "inventoryapi:write" },
+                RequireClientSecret = true,
+                AccessTokenType = AccessTokenType.Jwt,
+            },
             // m2m client credentials flow client
             new()
             {
@@ -88,7 +118,20 @@ public static class Config
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 RedirectUris = { "https://www.getpostmane.com/oauth2/callback" }, // Not going to be used. nore redirection in postman testing 
                 ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-                AllowedScopes = { "openid", "profile", "email", "userapi:read", "userapi:write", "catalogueapi:read", "catalogueapi:write", "searchapi:read", "searchapi:write" },
+                AllowedScopes = 
+                {
+                    "openid",
+                    "profile",
+                    "email",
+                    "catalogueapi:read",
+                    "catalogueapi:write",
+                    "userapi:read",
+                    "userapi:write",
+                    "searchapi:read",
+                    "searchapi:write",
+                    "inventoryapi:read",
+                    "inventoryapi:write"
+                },
                 RequireClientSecret = true,
                 AccessTokenType = AccessTokenType.Jwt,
             },
