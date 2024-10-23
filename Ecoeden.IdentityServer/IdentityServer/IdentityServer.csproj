@@ -56,11 +56,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="keys\key-813a1ea0-82a2-4e9e-b7a7-ed638f50885a.xml">
+	  <Content Update="keys\is-signing-key-70A6E4F1A06A01D7229AA217A0BB64F7.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="keys\key-ab37dcac-7c7d-483d-bda6-e0b244336d40.xml">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="keys\key-3cecc19b-fd20-41af-a8d6-520b656cf124.xml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
 </Project>
